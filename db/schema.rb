@@ -10,12 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_03_12_201355) do
+ActiveRecord::Schema[7.2].define(version: 2025_03_13_123331) do
   create_table "links", force: :cascade do |t|
     t.string "url"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_links_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -35,6 +37,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_12_201355) do
     t.index ["user_id"], name: "index_votes_on_user_id"
   end
 
+  add_foreign_key "links", "users"
   add_foreign_key "votes", "links"
   add_foreign_key "votes", "users"
 end
